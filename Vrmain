@@ -1,0 +1,214 @@
+colour change
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+public class color : MonoBehaviour
+{
+public GameObject targetObject;
+public Button colorChangeButton;
+public Color[] colors; // Array of colors to cycle through
+private int currentColorIndex = 0;
+private void Start()
+{
+// Add a listener to the button click event
+colorChangeButton.onClick.AddListener(ChangeObjectColor);
+// Initialize the target object's color
+targetObject.GetComponent<Renderer>().material.color = colors[currentColorIndex];
+}
+private void ChangeObjectColor()
+{
+// Increment the color index and wrap around if needed
+currentColorIndex = (currentColorIndex + 1) % colors.Length;
+// Change the target object's color
+targetObject.GetComponent<Renderer>().material.color = colors[currentColorIndex];
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+score
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class score : MonoBehaviour
+{
+    // Start is called before the first frame update
+    public Transform player;
+    public Text scoreText;
+
+
+
+    // Update is called once per frame
+    void Update()
+    {
+        scoreText.text=player.position.z.ToString();
+    }
+}
+
+
+
+
+
+
+
+
+mouse interaction
+using UnityEngine;
+public class MouseInteraction : MonoBehaviour
+{
+    private Rigidbody rb;
+    public float throwForce = 10f;
+    private bool isDragging = false;
+    private float distanceToCamera;
+
+
+    private void Start()
+    {
+     rb = GetComponent<Rigidbody>();
+        distanceToCamera = Vector3.Distance(transform.position, Camera.main.transform.position);
+    }
+
+
+    private void OnMouseDown()
+    {
+       isDragging = true;
+        rb.isKinematic = true;
+    }
+
+
+    private void OnMouseUp()
+    {
+       isDragging = false;
+        rb.isKinematic = false;
+
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = distanceToCamera;
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        Vector3 force = (worldPos - transform.position) * 10f       
+          rb.AddForce(force, ForceMode.Impulse);
+    }
+
+
+    private void Update()
+    {
+        if (isDragging)
+        {
+            Vector3 mousePos = Input.mousePosition;
+            mousePos.z = distanceToCamera;
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+            transform.position = worldPos;
+     }
+         if (Input.GetMouseButtonDown(0)) // Change to your desired input method.
+        {
+            ThrowObject();
+        }
+    }
+        private void ThrowObject()
+    {
+        rb.isKinematic = false; // Enable physics.
+        rb.velocity = Vector3.zero; // Reset the object's velocity.
+        rb.angularVelocity = Vector3.zero; // Reset the object's angular velocity.
+
+
+        Vector3 throwDirection = (transform.position - Camera.main.transform.position).normalized;
+        rb.AddForce(throwDirection * throwForce, ForceMode.Impulse);
+
+
+           }
+
+
+}
+
+
+
+
+
+AWSD Movement
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+public class movement : MonoBehaviour
+{
+public float moveSpeed = 10f;
+public float turnSpeed = 50f;
+private Rigidbody rb;
+private void Start()
+{
+rb = GetComponent<Rigidbody>();
+}
+private void FixedUpdate()
+{
+float horizontalInput = Input.GetAxis("Horizontal");
+float verticalInput = Input.GetAxis("Vertical");
+Vector3 movement = transform.forward * verticalInput * moveSpeed * Time.fixedDeltaTime;
+Quaternion rotation = Quaternion.Euler(0f, horizontalInput * turnSpeed * Time.fixedDeltaTime, 0f);
+rb.MovePosition(rb.position + movement);
+rb.MoveRotation(rb.rotation * rotation);
+}}
+
+
+
+scene switcher
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+using UnityEngine.SceneManagement;
+public class SceneLoader : MonoBehaviour
+{
+    public string scene2;
+    public void LoadScene()
+    {
+        SceneManager.LoadScene(scene2);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
