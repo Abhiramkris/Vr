@@ -1,8 +1,6 @@
-// position will be reset once the speed is reduced 
-
 using UnityEngine;
 
-public class StrikerController : MonoBehaviour
+public class ObjectMover : MonoBehaviour
 {
     public float moveSpeed = 5f;
     private bool isMoving = false;
@@ -15,21 +13,14 @@ public class StrikerController : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            StartMoving();
+        }
+
         if (isMoving)
         {
-            MoveStriker();
-        }
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        // Check if the collision involves a Rigidbody
-        Rigidbody otherRigidbody = collision.gameObject.GetComponent<Rigidbody>();
-
-        if (otherRigidbody != null)
-        {
-            // Start moving the striker towards the cursor
-            StartMoving();
+            MoveObject();
         }
     }
 
@@ -39,7 +30,7 @@ public class StrikerController : MonoBehaviour
         GetComponent<Rigidbody>().velocity = CalculateMoveDirection() * moveSpeed;
     }
 
-    void MoveStriker()
+    void MoveObject()
     {
         Rigidbody rb = GetComponent<Rigidbody>();
 
@@ -55,6 +46,9 @@ public class StrikerController : MonoBehaviour
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.velocity = Vector3.zero;
         isMoving = false;
+
+        // Return the object to its initial position
+        transform.position = initialPosition;
     }
 
     Vector3 CalculateMoveDirection()
