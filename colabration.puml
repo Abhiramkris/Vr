@@ -1,0 +1,8 @@
+@startuml
+actor "librarian" as lib
+actor "user" as us
+node "library card" as lc
+us-->lc:request
+lib-->lc:return provision data
+lib-right-->lc:checks library card
+@enduml
