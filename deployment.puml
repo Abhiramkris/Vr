@@ -1,0 +1,16 @@
+@startuml
+node "in vechile cam"{
+    component camera
+    component sensor
+}
+node "algorithm"{
+    component pythonalgo
+}
+
+node "driver console"{
+    component display
+}
+
+camera-->display:real_time
+sensor-->pythonalgo:data_transfer
+@enduml
