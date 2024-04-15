@@ -1,0 +1,8 @@
+@startuml
+[*]-->awake
+awake:driver is drowsy
+drowsy:driver falls asleep
+asleep:driver is asleep
+drowsy-->asleep:alert acknowleged
+asleep-->drowsy:drowsiness deteced
+@enduml
