@@ -1,0 +1,18 @@
+@@startuml
+class user{
+    +username: String
+    +email: String
+
+}
+class chatbot{
+    +name:String
+    +version:String
+    +ptovideemotionalsuppot():string
+
+}
+class nlp{
+    +name:alphabet
+}
+user--chatbot:reqsest
+chatbot--nlp:accuries
+@@enduml
