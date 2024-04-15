@@ -1,0 +1,22 @@
+@startuml
+<style>
+activityDiagram {
+BackgroundColor #yellow;
+}
+arrow{
+    Fontcolor red;
+    FOntsize 15;
+}
+document{
+BackgroundColor white;
+}
+</style>
+(*)-->Initilize the system
+-->input values
+if "input" 
+-->[yes] "report thread"
+else
+-->[no] "video captuting"
+-->"video capture"
+--> (*)
+@enduml
