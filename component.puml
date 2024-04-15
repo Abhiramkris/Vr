@@ -1,0 +1,9 @@
+@startuml
+package "drowsiness system"{
+[driver]
+[sensor]
+[processing unit]
+[driver]-->[sensor]:provides input
+[sensor]-->[processing unit]:sends data
+}
+@enduml
